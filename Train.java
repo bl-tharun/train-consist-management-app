@@ -6,49 +6,59 @@ import java.util.List;
  * CLASS – Train
  * =========================================================
  *
- * Use Case 1: Initialize Train and Display Empty Consist
+ * Use Case 1–2: Train Domain Model
  *
  * Description:
- * This class represents a Train entity in the system.
+ * Represents a Train and its consist.
  *
- * At this stage, a Train only maintains a consist,
- * which is a collection of bogies attached to it.
+ * From Use Case 2 onwards, the train supports
+ * basic modification of its consist.
  *
- * No business rules, validations, or constraints
- * are applied in this version.
+ * No constraints such as uniqueness or validation
+ * are applied yet.
  *
- * The goal is to introduce:
- * - Object modeling
- * - State representation
- * - Dynamic collections
- *
- * @version 1.0
+ * @version 2.0
  */
 public class Train {
 
-    /**
-     * Represents the current consist of the train.
-     *
-     * An ArrayList is used because:
-     * - The number of bogies is unknown at startup
-     * - The consist will grow and shrink over time
-     *
-     * We use the List interface to avoid
-     * tight coupling to a concrete implementation.
-     */
+    // Dynamic list representing train consist.
     private List<String> consist;
 
-    /**
-     * Constructs a Train with an empty consist.
-     */
+    // Constructs a Train with an empty consist.
     public Train() {
         this.consist = new ArrayList<>();
     }
 
     /**
-     * Returns the current train consist.
+     * Adds a bogie to the train consist.
      *
-     * @return list of bogies attached to the train
+     * @param bogieType type of passenger bogie
+     */
+    public void addBogie(String bogieType) {
+        consist.add(bogieType);
+    }
+
+    /**
+     * Removes a bogie from the train consist.
+     *
+     * @param bogieType type of bogie to remove
+     */
+    public void removeBogie(String bogieType) {
+        consist.remove(bogieType);
+    }
+
+    /**
+     * Checks if a bogie exists in the consist.
+     *
+     * @param bogieType bogie to check
+     * @return true if present, false otherwise
+     */
+    public boolean hasBogie(String bogieType) {
+        return consist.contains(bogieType);
+    }
+
+    /**
+     * @return current train consist
      */
     public List<String> getConsist() {
         return consist;
