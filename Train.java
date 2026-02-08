@@ -1,66 +1,57 @@
+import java.util.LinkedHashSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * =========================================================
  * CLASS – Train
  * =========================================================
  *
- * Use Case 1–2: Train Domain Model
+ * Use Case 1–5: Train Domain Model
  *
  * Description:
- * Represents a Train and its consist.
+ * From Use Case 5 onwards, the train enforces:
+ * - Unique bogies
+ * - Formation (insertion) order
  *
- * From Use Case 2 onwards, the train supports
- * basic modification of its consist.
+ * Internally, this is achieved using
+ * LinkedHashSet.
  *
- * No constraints such as uniqueness or validation
- * are applied yet.
+ * IMPORTANT:
+ * Public methods introduced in earlier
+ * use cases remain unchanged.
  *
- * @version 2.0
+ * @version 5.0
  */
 public class Train {
 
-    // Dynamic list representing train consist.
-    private List<String> consist;
+    // Internal representation now enforces formation order + uniqueness
+    private Set<String> formationBogies;
 
-    // Constructs a Train with an empty consist.
     public Train() {
-        this.consist = new ArrayList<>();
+        this.formationBogies = new LinkedHashSet<>();
     }
 
-    /**
-     * Adds a bogie to the train consist.
-     *
-     * @param bogieType type of passenger bogie
-     */
+    // add bogies
     public void addBogie(String bogieType) {
-        consist.add(bogieType);
+        formationBogies.add(bogieType);
     }
 
-    /**
-     * Removes a bogie from the train consist.
-     *
-     * @param bogieType type of bogie to remove
-     */
+    // remove bogies
     public void removeBogie(String bogieType) {
-        consist.remove(bogieType);
+        formationBogies.remove(bogieType);
     }
 
-    /**
-     * Checks if a bogie exists in the consist.
-     *
-     * @param bogieType bogie to check
-     * @return true if present, false otherwise
-     */
+    // check if bogie exists
     public boolean hasBogie(String bogieType) {
-        return consist.contains(bogieType);
+        return formationBogies.contains(bogieType);
     }
 
     /**
-     * @return current train consist
+     * @return a List view of the consist
      */
     public List<String> getConsist() {
-        return consist;
+        return new ArrayList<>(formationBogies);
     }
 }
