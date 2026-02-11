@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -6,34 +7,46 @@ import java.util.regex.Pattern;
  * CLASS – ValidationService
  * =========================================================
  *
- * Use Case 11: Input Validation Service
+ * Use Case 11–12: Validation Service
  *
  * Description:
- * Centralizes validation logic used
- * across the application.
+ * Centralizes validation logic.
  *
- * At this stage, it validates:
- * - Train ID format
- * - Cargo code format
+ * UC11: Format validation (Regex)
+ * UC12: Business safety validation
  *
- * More validation rules will be added
- * in later use cases.
- *
- * @version 11.0
+ * @version 12.0
  */
 public class ValidationService {
 
-    // Validates Train ID format: TRN-1234
+    // UC11 – format validation
     public boolean isValidTrainId(String trainId) {
         Pattern pattern = Pattern.compile("TRN-\\d{4}");
         Matcher matcher = pattern.matcher(trainId);
         return matcher.matches();
     }
 
-    // Validates Cargo Code format: PET-XX
     public boolean isValidCargoCode(String cargoCode) {
         Pattern pattern = Pattern.compile("[A-Z]{3}-[A-Z]{2}");
         Matcher matcher = pattern.matcher(cargoCode);
         return matcher.matches();
+    }
+
+    /**
+     * UC12 – safety validation
+     *
+     * Rule:
+     * Cylindrical bogies can carry
+     * only petroleum cargo.
+     *
+     * @param goodsBogies list of goods bogies
+     * @return true if all bogies comply, false otherwise
+     */
+    public boolean isGoodsTrainSafe(List<GoodsBogie> goodsBogies) {
+        return goodsBogies.stream()
+                .allMatch(b ->
+                        !b.getShape().equalsIgnoreCase("Cylindrical")
+                        || b.getCargo().equalsIgnoreCase("Petroleum")
+                );
     }
 }
