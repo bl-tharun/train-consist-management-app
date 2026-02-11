@@ -3,16 +3,16 @@
  * CLASS – GoodsBogie
  * =========================================================
  *
- * Use Case 12: Goods Bogie Domain Model
+ * Use Case 12–15: Goods Bogie Domain Model
  *
  * Description:
- * Represents a goods bogie with
- * shape and cargo type.
+ * Represents a goods bogie.
  *
- * This class is intentionally simple
- * and contains no validation logic.
+ * UC15 adds the ability to assign cargo
+ * after creation without breaking
+ * earlier use cases.
  *
- * @version 12.0
+ * @version 15.0
  */
 public class GoodsBogie {
 
@@ -30,6 +30,11 @@ public class GoodsBogie {
 
     public String getCargo() {
         return cargo;
+    }
+
+    // Added a setter here
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     @Override
